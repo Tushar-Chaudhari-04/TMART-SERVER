@@ -66,17 +66,3 @@ module.exports = {
     getProductController
 };
 
-/*
-
-    if (!req.body.name) {
-        products?.find({}, (err, data) => {
-            console.log("data", data)
-            if (data) {
-                return res.send(success(200, data))
-            }
-        })
-    }
-
-    return;
-
-*/

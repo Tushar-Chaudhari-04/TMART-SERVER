@@ -8,7 +8,6 @@ const verifyToken = (req, res, next) => {
     try {
       const tokenStr = req.headers.authorization.split(" ")[1].toString();
       const jwt_token = tokenStr.replace(/"([^"]+(?="))"/g, '$1');
-        //const tokenStr=req.headers.authorization.split(" ")[1];
         console.log("jwt_token", jwt_token)
         const tokenData = jwt.verify(
             jwt_token,

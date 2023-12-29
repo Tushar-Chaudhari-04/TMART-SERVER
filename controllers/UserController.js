@@ -28,18 +28,3 @@ const userInfoController =async (req, res) => {
 module.exports = {
     userInfoController
 };
-
-
-/*
-    if(users?.findOne({_id:req._id},(err,data)=>{
-        console.log(data,err)
-        try {
-            if(data){
-                const{password,...userData}=data;
-              
-            }    
-        } catch (err) {
-            return res.send(error(500,err));
-        }
-        }))
-*/
