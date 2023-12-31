@@ -7,6 +7,13 @@ const Razorpay = require('razorpay');
 //MongoDB Database Connection 
 dbConnection();
 
+let origin=process.env.CLIENT_LOCALHOST_BASE_URL
+console.log("origin",origin);
+console.log("process.env.NODE_ENV",process.env.NODE_ENV);
+if(process.env.NODE_ENV==='production'){
+    origin=process.env.CLIENT_BASE_URL
+}
+
 //Backend App using Express
 const app=express();
 
