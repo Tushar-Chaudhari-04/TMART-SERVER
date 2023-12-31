@@ -8,8 +8,7 @@ const Razorpay = require('razorpay');
 dbConnection();
 
 let origin=process.env.CLIENT_LOCALHOST_BASE_URL
-console.log("origin",origin);
-console.log("process.env.NODE_ENV",process.env.NODE_ENV);
+
 if(process.env.NODE_ENV==='production'){
     origin=process.env.CLIENT_BASE_URL
 }
@@ -35,7 +34,6 @@ app.use('/api/v1/product',productRouter)
 app.use('/api/v1/order',orderRouter);
 
 const port=process.env.PORT;
-console.log("port",port);
 
 app.listen(port || 8081,()=>{
     console.log(`Tushar SuperMart server is running on port ${port}`);

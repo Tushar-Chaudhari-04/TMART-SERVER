@@ -19,15 +19,12 @@ const getRazorPayKey = async (req, res) => {
 
 const createOrderController = async (req, res) => {
     try {
-        console.log("req", req.body);
         const { userId, userName, grossTotal, products } = req.body;
         var options = {
             amount: Number(grossTotal * 100),  // amount in the smallest currency unit
             currency: "INR",
         };
         const orderInstance = await instance.orders.create(options);
-
-        console.log("orderInstance", orderInstance)
 
         const newOrder = new Order({
             orderId: orderInstance.id,
@@ -45,17 +42,15 @@ const createOrderController = async (req, res) => {
 
 const paymentVerificationController = async (req, res) => {
     try {
-        console.log("req.body",req.body)
         const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = req.body;
         const body = razorpay_order_id + "|" + razorpay_payment_id;
-        console.log("body",body)
+
         const generated_signature = crypto.createHmac('sha256', process.env.RAZOR_PAY_SECRET_KEY)
             .update(body.toString())
             .digest('hex');
-            console.log("generated_signature",generated_signature)
+
         const isAuthentic = generated_signature === razorpay_signature;
        
-        console.log("isAuthentic",isAuthentic);
         if (isAuthentic) {
             //DB Works
             const payment = new Payment({

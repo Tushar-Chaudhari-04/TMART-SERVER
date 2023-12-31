@@ -6,16 +6,15 @@ const { success, error } = require("../utils/responseWrapper");
 
 const userInfoController =async (req, res) => {
     try {
-        console.log(`GET request to "/user/getuserInfo" received for user`);
+      //  console.log(`GET request to "/user/getuserInfo" received for user`);
 
         if (!req._id)
             return res.send(error(400, "Token is Expired.Please login again...",""));
     
         const user=await User.findOne({_id:req._id});
-        console.log("user",user)
+
         if(user){
             const {password,...userData}=user._doc;    
-            console.log("UserData ",userData);
             return res.send(success(200,"Got the user data",userData));
         }
         

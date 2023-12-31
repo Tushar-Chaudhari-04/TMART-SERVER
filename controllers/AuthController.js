@@ -6,14 +6,13 @@ const { success, error } = require("../utils/responseWrapper");
 
 const registerController = async (req, res) => {
     try {
-        console.log(`GET request to "/auth/register" received for user`);
+     //   console.log(`GET request to "/auth/register" received for user`);
         let { firstName, lastName, email, password } = req.body;
 
         if (!firstName && !lastName && !email && !password)
             return res.send(error(400, "All registration feilds are mandatory..."));
 
         const oldUser = await User.findOne({ email });
-        console.log("oldUser", oldUser);
 
         if (oldUser)
             return res.send(error(400, "User already exists.Please use different credentials"))
@@ -27,7 +26,6 @@ const registerController = async (req, res) => {
 
         try {
             if (newUser) {
-                console.log("newUser", newUser);
                 const user = await newUser.save();
 
                 const { password, ...userData } = user._doc;
@@ -44,14 +42,13 @@ const registerController = async (req, res) => {
 
 const loginController = async (req, res) => {
     try {
-        console.log(`GET request to "/auth/login" received for user`);
+     //   console.log(`GET request to "/auth/login" received for user`);
         let { email, password } = req.body;
 
         if (!email && !password)
             return res.send(error(400, "All login fields are mandatory...", ""));
 
         const existingUser = await User.findOne({ email });
-        console.log("existingUser", existingUser)
 
         if (!existingUser)
             return res.send(error(400, "Please use valid credentials", "User is not Registered"));

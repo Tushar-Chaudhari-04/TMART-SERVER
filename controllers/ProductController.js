@@ -5,12 +5,11 @@ const { success, error } = require("../utils/responseWrapper");
 
 const addProductController = async (req, res) => {
     try {
-        console.log(`POST request to "/product/addProduct" received for user`);
-        console.log("req.body product", req.body);
+     //   console.log(`POST request to "/product/addProduct" received for user`);
 
         for (let data in req.body) {
             const { name, qty, mrp, price, url, categoryId } = req.body[data];
-            console.log("data product", req.body[data])
+
             if (!req._id)
                 return res.send(error(400, "Token is Expired.Please login again...", ""));
 
@@ -31,7 +30,6 @@ const addProductController = async (req, res) => {
                 categoryId
             })
 
-            console.log("newProduct", newProduct);
             await newProduct.save();
             continue
         }
@@ -42,8 +40,7 @@ const addProductController = async (req, res) => {
 }
 
 const getProductController = async (req, res) => {
-    console.log(`POST request to "/product/getProduct" received for user`);
-    console.log("req.body product", req.body)
+   // console.log(`POST request to "/product/getProduct" received for user`);
 
     const { name } = req.body;
     try {
