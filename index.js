@@ -22,6 +22,7 @@ const authRouter=require("./routers/AuthRouter");
 const userRouter=require("./routers/UserRouter");
 const productRouter=require("./routers/ProductRouter")
 const orderRouter=require("./routers/OrdersRouter");
+const { success } = require("./utils/responseWrapper");
 
 app.use(cors());
 app.use(express.json());
@@ -36,6 +37,10 @@ app.use('/api/v1/order',orderRouter);
 const port=process.env.PORT;
 console.log("port",port);
 
-app.listen(port,()=>{
+app.listen(port || 8081,()=>{
     console.log(`Tushar SuperMart server is running on port ${port}`);
 });
+
+app.get("/",(req,res)=>{
+    res.send(success(200,`Welcome to TSM Server ${port}`,""))
+})
