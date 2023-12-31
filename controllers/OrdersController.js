@@ -59,11 +59,11 @@ const paymentVerificationController = async (req, res) => {
                 razorpay_signature
             })
             await payment.save();
-            res.redirect(`${process.env.CLIENT_LOCALHOST_BASE_URL}/payment/success?referenceNumber=${razorpay_payment_id}`);
+            res.redirect(`${process.env.NODE_ENV=="production"?process.env.CLIENT_BASE_URL:process.env.CLIENT_LOCALHOST_BASE_URL}/payment/success?referenceNumber=${razorpay_payment_id}`);
         }
 
         else
-            res.redirect(`${process.env.CLIENT_LOCALHOST_BASE_URL}/payment/error?referenceNumber=${razorpay_payment_id}`)
+            res.redirect(`${process.env.NODE_ENV=="production"?process.env.CLIENT_BASE_URL:process.env.CLIENT_LOCALHOST_BASE_URL}/payment/error?referenceNumber=${razorpay_payment_id}`)
     } catch (err) {
         return res.send(error(500, "Internal Server Error", err));
     }
