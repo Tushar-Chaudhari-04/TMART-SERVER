@@ -58,8 +58,34 @@ const getProductController = async (req, res) => {
     }
 }
 
+const searchProductController = async (req, res) => {
+    // console.log(`POST request to "/product/getProduct" received for user`);
+ 
+     const { searchParams } = req.query;
+     console.log("query",searchParams)
+     try {
+         if (searchParams) {
+             var product = await Product.find({
+                "$or":[
+                    {name:{$regex:searchParams}},
+                    {categoryId:{$regex:searchParams}}
+                ]
+             });
+         }
+         else {
+             product = await Product.find();
+         }
+ 
+         if (product)
+             return res.send(success(200, "Search product data ...", product));
+     } catch (err) {
+         return res.send(error(400, "Error in searching product data", err));
+     }
+ }
+
 module.exports = {
     addProductController,
-    getProductController
+    getProductController,
+    searchProductController
 };
 
